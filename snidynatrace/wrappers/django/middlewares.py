@@ -108,5 +108,5 @@ def insert_dynatrace_middleware():
         setattr(
             settings,
             middleware_attribute,
-            type(middleware)(("autodynatrace.wrappers.django.middlewares.DynatraceMiddleware",)) + middleware,
+            type(middleware)(("snidynatrace.wrappers.django.middlewares.DynatraceMiddleware",)) + middleware,
         )

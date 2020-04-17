@@ -1,6 +1,6 @@
 import logging
 
-logger = logging.getLogger("autodynatrace")
+logger = logging.getLogger("snidynatrace")
 
 
 def init(level=logging.INFO):

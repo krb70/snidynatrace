@@ -12,9 +12,13 @@ def shutdown():
 
 def init(forkable=False):
     global sdk
-    oneagent.initialize(forkable=forkable)
+    try:
+        oneagent.initialize(forkable=forkable)
+    except TypeError:
+        # older versions of the oneagent SDK don't support forkable
+        oneagent.initialize()
     state = oneagent.get_sdk().agent_state
-    logger.debug("Initialized autodynatrace with AgentState: {}".format(state))
+    logger.debug("Initialized snidynatrace with AgentState: {}".format(state))
     if state != oneagent.common.AgentState.ACTIVE:
         logger.warning("Could not initialize the OneAgent SDK, AgentState: {}".format(state))
 

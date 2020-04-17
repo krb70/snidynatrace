@@ -13,14 +13,14 @@ def instrument():
     def dynatrace_setup(wrapped, instance, args, kwargs):
         from django.conf import settings
 
-        if "autodynatrace.wrappers.django" not in settings.INSTALLED_APPS:
+        if "snidynatrace.wrappers.django" not in settings.INSTALLED_APPS:
             if isinstance(settings.INSTALLED_APPS, tuple):
 
-                settings.INSTALLED_APPS = settings.INSTALLED_APPS + ("autodynatrace.wrappers.django",)
+                settings.INSTALLED_APPS = settings.INSTALLED_APPS + ("snidynatrace.wrappers.django",)
             else:
-                settings.INSTALLED_APPS.append("autodynatrace.wrappers.django")
+                settings.INSTALLED_APPS.append("snidynatrace.wrappers.django")
 
-            logger.debug("Added autodynatrace to settings.INSTALLED_APPS")
+            logger.debug("Added snidynatrace to settings.INSTALLED_APPS")
         wrapped(*args, **kwargs)
 
 

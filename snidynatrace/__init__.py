@@ -8,6 +8,7 @@ from wrapt.importer import when_imported
 
 from .log import init as log_init, logger
 from .sdk import init as sdk_init
+from .version import __version__
 
 log_level_name = os.environ.get("AUTODYNATRACE_LOG_LEVEL", "WARNING")
 log_init(logging.getLevelName(log_level_name))
@@ -44,7 +45,7 @@ def instrument_all(**instrument_libs):
 def _on_import_wrapper(lib):
     def on_import(hook):
 
-        path = "autodynatrace.wrappers.%s" % lib
+        path = "snidynatrace.wrappers.%s" % lib
         try:
             imported_module = importlib.import_module(path)
             imported_module.instrument()
@@ -81,7 +82,7 @@ def instrument_lib(lib):
 
 def _instrument_lib(lib):
 
-    path = "autodynatrace.wrappers.%s" % lib
+    path = "snidynatrace.wrappers.%s" % lib
     with _LOCK:
         if lib in _INSTRUMENTED_LIBS and lib:
             logger.debug("Skipping (already instrumented): {}".format(path))

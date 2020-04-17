@@ -1,18 +1,16 @@
 ##  Dynatrace OneAgent SDK Auto Instrumentation for Python
 
-> **DISCLAIMER**: This project was developed as a hobby. It is not complete, nor supported and only intended as a starting point for those wanting to implement OneAgent SDK for Python with minimal code changes.
-
-[![Downloads](https://pepy.tech/badge/autodynatrace)](https://pepy.tech/project/autodynatrace)
+This snidynatrace package is a fork of the autodynatrace package.
 
 This package will instrument your python code with the OneAgentSDK.
 
 ### Usage
 
-`pip install autodynatrace`
+`pip install snidynatrace`
 
 For most technologies, just import it in your code.
 
-`import autodynatrace`
+`import snidynatrace`
 
 ### Technologies supported:
 
@@ -28,15 +26,15 @@ For most technologies, just import it in your code.
 
 ### Django
 
-For Django, add `"autodynatrace.wrappers.django"` to `INSTALLED_APPS`
+For Django, add `"snidynatrace.wrappers.django"` to `INSTALLED_APPS`
 
 ### Confluent Kafka
 
-confluent_kafka is written in C, which means we cannot patch the objects, to use it, just replace the `confluent_kafka.Consumer` and `confluent_kafka.Producer` imports with `autodynatrace.wrappers.confluent_kafka.Producer` and `autodynatrace.wrappers.confluent_kafka.Consumer`
+confluent_kafka is written in C, which means we cannot patch the objects, to use it, just replace the `confluent_kafka.Consumer` and `confluent_kafka.Producer` imports with `snidynatrace.wrappers.confluent_kafka.Producer` and `snidynatrace.wrappers.confluent_kafka.Consumer`
 
 ```python
-import autodynatrace
-from autodynatrace.wrappers.confluent_kafka import Consumer, Producer
+import snidynatrace
+from snidynatrace.wrappers.confluent_kafka import Consumer, Producer
 import time
 from concurrent.futures import ThreadPoolExecutor
 
@@ -45,7 +43,7 @@ c = Consumer({"bootstrap.servers": "localhost:32769", "group.id": "mygroup", "au
 c.subscribe(["mytopic"])
 
 
-@autodynatrace.trace
+@snidynatrace.trace
 def produce():
     message = "Hello world!"
     p.produce("mytopic", message.encode("utf-8"))

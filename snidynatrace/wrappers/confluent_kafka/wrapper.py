@@ -19,7 +19,7 @@ class Consumer(KafkaConsumer):
 
 try:
 
-    @wrapt.patch_function_wrapper("autodynatrace.wrappers.confluent_kafka.wrapper", "Producer.__init__")
+    @wrapt.patch_function_wrapper("snidynatrace.wrappers.confluent_kafka.wrapper", "Producer.__init__")
     def custom_producer_init(wrapped, instance, args, kwargs):
 
         servers = args[0].get("bootstrap.servers", "unknown-host")
@@ -27,7 +27,7 @@ try:
 
         return wrapped(*args, **kwargs)
 
-    @wrapt.patch_function_wrapper("autodynatrace.wrappers.confluent_kafka.wrapper", "Consumer.__init__")
+    @wrapt.patch_function_wrapper("snidynatrace.wrappers.confluent_kafka.wrapper", "Consumer.__init__")
     def custom_consumer_init(wrapped, instance, args, kwargs):
 
         servers = args[0].get("bootstrap.servers", "unknown-host")
@@ -35,7 +35,7 @@ try:
 
         return wrapped(*args, **kwargs)
 
-    @wrapt.patch_function_wrapper("autodynatrace.wrappers.confluent_kafka.wrapper", "Producer.produce")
+    @wrapt.patch_function_wrapper("snidynatrace.wrappers.confluent_kafka.wrapper", "Producer.produce")
     def custom_produce(wrapped, instance, args, kwargs):
 
         servers = getattr(instance, "dt_servers", "unknown-host")
@@ -53,7 +53,7 @@ try:
                 kwargs["headers"] = headers
                 return wrapped(*args, **kwargs)
 
-    @wrapt.patch_function_wrapper("autodynatrace.wrappers.confluent_kafka.wrapper", "Consumer.poll")
+    @wrapt.patch_function_wrapper("snidynatrace.wrappers.confluent_kafka.wrapper", "Consumer.poll")
     def custom_poll(wrapped, instance, args, kwargs):
         message = wrapped(*args, **kwargs)
         if message is not None:

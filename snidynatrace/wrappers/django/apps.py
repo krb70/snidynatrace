@@ -4,7 +4,7 @@ from .wrapper import instrument_django
 
 
 class DynatraceConfig(AppConfig):
-    name = "autodynatrace.wrappers.django"
+    name = "snidynatrace.wrappers.django"
     label = "dynatrace_django"
 
     def ready(self):
